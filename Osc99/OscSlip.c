@@ -93,6 +93,7 @@ OscError OscSlipEncodePacket(const OscPacket * const oscPacket, size_t * const s
 void OscSlipDecoderInitialise(OscSlipDecoder * const oscSlipDecoder) {
     oscSlipDecoder->bufferIndex = 0;
     oscSlipDecoder->processPacket = NULL;
+    oscSlipDecoder->param = NULL;
 }
 
 /**
@@ -164,7 +165,7 @@ OscError OscSlipDecoderProcessByte(OscSlipDecoder * const oscSlipDecoder, const 
     if (oscSlipDecoder->processPacket == NULL) {
         return OscErrorCallbackFunctionUndefined; // error: user function undefined
     }
-    oscSlipDecoder->processPacket(&oscPacket);
+    oscSlipDecoder->processPacket(oscSlipDecoder->param, &oscPacket);
     return OscErrorNone;
 }
 

@@ -170,7 +170,7 @@ static OscError DeconstructContents(OscPacket * const oscPacket, const OscTimeTa
         if (oscError != OscErrorNone) {
             return oscError; // error: message initialisation failed
         }
-        oscPacket->processMessage(oscTimeTag, &oscMessage);
+        oscPacket->processMessage(oscPacket->param, oscTimeTag, &oscMessage);
         return OscErrorNone;
     }
 

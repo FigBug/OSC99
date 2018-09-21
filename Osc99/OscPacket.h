@@ -34,7 +34,8 @@
 typedef struct {
     char contents[MAX_OSC_PACKET_SIZE];
     size_t size;
-    void ( *processMessage)(const OscTimeTag * const oscTimeTag, OscMessage * const oscMessage);
+    void ( *processMessage)(void* param, const OscTimeTag * const oscTimeTag, OscMessage * const oscMessage);
+    void* param;
 } OscPacket;
 
 //------------------------------------------------------------------------------

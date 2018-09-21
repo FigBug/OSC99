@@ -12,6 +12,7 @@
 #include <limits.h> // SCHAR_MAX
 #include "OscMessage.h"
 #include <string.h> // strlen
+#include <math.h>
 
 //------------------------------------------------------------------------------
 // Function prototypes
@@ -1531,7 +1532,11 @@ OscError OscMessageGetArgumentAsFloat32(OscMessage * const oscMessage, float * c
         }
         case OscTypeTagInfinitum:
         {
+#ifdef _WIN32
+            *float32 = INFINITY;
+#else
             *float32 = 1.0f / 0.0f;
+#endif
             return OscErrorNone;
         }
         default:
@@ -1933,7 +1938,11 @@ OscError OscMessageGetArgumentAsDouble(OscMessage * const oscMessage, Double64 *
         }
         case OscTypeTagInfinitum:
         {
+#ifdef _WIN32
+            *double64 = INFINITY;
+#else
             *double64 = (Double64) 1 / (Double64) 0;
+#endif
             return OscErrorNone;
         }
         default:

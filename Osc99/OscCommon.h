@@ -41,11 +41,19 @@
 //------------------------------------------------------------------------------
 // Definitions - 32-bit argument types
 
+#ifdef _WIN32
+#pragma pack(push)
+#pragma pack(1)  
+#define PACK
+#else
+#define PACK __attribute__((__packed__))
+#endif
+
 /**
  * @brief 32-bit RGBA colour.
  * @see http://en.wikipedia.org/wiki/RGBA_color_space
  */
-typedef struct __attribute__((__packed__)) {
+typedef struct PACK {
 #ifdef LITTLE_ENDIAN_PLATFORM
     char alpha; // LSB
     char blue;
@@ -63,7 +71,7 @@ RgbaColour;
 /**
  * @brief 4 byte MIDI message as described in OSC 1.0 specification.
  */
-typedef struct __attribute__((__packed__)) {
+typedef struct PACK {
 #ifdef LITTLE_ENDIAN_PLATFORM
     char data2; // LSB
     char data1;
@@ -88,7 +96,7 @@ typedef union {
     RgbaColour rgbaColour;
     MidiMessage midiMessage;
 
-    struct __attribute__((__packed__)) {
+    struct PACK {
 #ifdef LITTLE_ENDIAN_PLATFORM
         char byte0; // LSB
         char byte1;
@@ -113,13 +121,13 @@ typedef union {
 typedef union {
     uint64_t value;
 
-    struct __attribute__((__packed__)) {
+    struct PACK {
         uint32_t fraction;
         uint32_t seconds;
     }
     dwordStruct;
 
-    struct __attribute__((__packed__)) {
+    struct PACK {
 #ifdef LITTLE_ENDIAN_PLATFORM
         char byte0; // LSB
         char byte1;
@@ -162,7 +170,7 @@ typedef union {
     OscTimeTag oscTimeTag;
     Double64 double64;
 
-    struct __attribute__((__packed__)) {
+    struct PACK {
 #ifdef LITTLE_ENDIAN_PLATFORM
         char byte0; // LSB
         char byte1;
@@ -196,6 +204,10 @@ extern const OscTimeTag oscTimeTagZero;
 
 bool OscContentsIsMessage(const void * const oscContents);
 bool OscContentsIsBundle(const void * const oscContents);
+
+#ifdef _WIN32
+#pragma pack(pop)
+#endif
 
 #endif
 
