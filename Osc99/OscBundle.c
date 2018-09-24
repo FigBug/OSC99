@@ -11,6 +11,10 @@
 
 #include "OscBundle.h"
 
+#ifdef _WIN32
+#pragma warning (disable: 4701)
+#endif
+
 //------------------------------------------------------------------------------
 // Functions
 

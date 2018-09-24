@@ -14,6 +14,12 @@
 #include <string.h> // strlen
 #include <math.h>
 
+#ifdef _WIN32
+#pragma warning (disable: 4702)
+#pragma warning (disable: 4018)
+#endif
+
+
 //------------------------------------------------------------------------------
 // Function prototypes
 

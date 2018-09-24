@@ -12,6 +12,10 @@
 #include "OscSlip.h"
 #include <stddef.h>
 
+#ifdef _WIN32
+#pragma warning (disable: 4310)
+#endif
+
 //------------------------------------------------------------------------------
 // Definitions
 
